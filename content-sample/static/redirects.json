@@ -1,0 +1,6 @@
+[
+    {
+        "source": "/hello",
+        "target": "/post/a-sample-post"
+    }
+]

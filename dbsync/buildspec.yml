@@ -1,0 +1,16 @@
+# Build steps for AWS CodeBuild.
+version: 0.2
+phases:
+  build:
+    commands:
+      - cd dbsync
+      - ls -al
+      - ls -al ${CODEBUILD_SRC_DIR_HugoArtifacts}
+      - node -v
+      - npm install
+  post_build:
+    commands:
+      # Technically this is probably more of a "deploy" than a "build"
+      # Since it has ramifications
+      - CONTENT_DIRECTORY=${CODEBUILD_SRC_DIR_HugoArtifacts}
+      - node index.mjs

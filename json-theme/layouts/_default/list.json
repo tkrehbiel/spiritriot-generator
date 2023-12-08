@@ -1,0 +1,5 @@
+{{- $parent := partial "pageToDict.tpl" . -}}
+{{- $pages := partial "getPages.tpl" $.Pages | first 20 -}}
+{{- $children := partial "listToDict.tpl" $pages -}}
+{{- $output := merge $parent (dict "children" $children) -}}
+{{- $output | jsonify (dict "indent" "  ") }}

@@ -1,0 +1,1 @@
+Spirit Riot is a partly static, partly dynamic blog platform that renders Markdown posts, written in Next.js. It aims to combine the benefits of static generation with some dynamic functionality like search and webmentions. It consists of several moving parts that work together at build time and run time.

@@ -1,0 +1,20 @@
+theme = 'json-theme'
+baseURL = 'https://sample.com/'
+languageCode = 'en-us'
+title = 'Sample Content Site'
+
+paginate = 25
+
+disableKinds = [ 'taxonomy', 'term', 'sitemap' ]
+
+[outputs]
+  home = ["json"]
+  section = ["json"]
+  taxonomy = ["json"]
+  term = ["json"]
+  page = ["json"]
+
+[Params]
+  jsonIncludeKinds = [ "page" ]
+  jsonIncludeTypes = [ "post", "micropost" ]
+  

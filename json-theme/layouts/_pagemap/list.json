@@ -1,0 +1,20 @@
+{{- $parent := dict 
+    "link" "/_pagemap"
+    "date" .Date
+    -}}
+{{- $pages := $.Site.AllPages -}}
+{{- $pages = where $pages "Kind" "in" (slice "page") -}}
+{{- $pages = where $pages "Type" "in" (slice "post") -}}
+{{- $pages = where $pages "Date" "ge" (time.AsTime "1900-01-01T00:00:00-00:00") -}}
+{{- $entries := slice -}}
+{{- range $pages -}}
+{{- if ne (index .Section 0) "_" }}
+{{- $entry := dict
+    "link" .RelPermalink
+    "date" .Date 
+    -}}
+{{- $entries = $entries | append $entry -}}
+{{- end -}}
+{{- end -}}
+{{- $output := merge $parent (dict "children" $entries) -}}
+{{- $output | jsonify (dict "indent" "  ") }}

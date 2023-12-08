@@ -1,0 +1,3 @@
+{{- $parent := partial "pageToDict.tpl" . -}}
+{{- $output := merge $parent (dict "children" slice)}}
+{{- $output | jsonify (dict "indent" "  ") }}
