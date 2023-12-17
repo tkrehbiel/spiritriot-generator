@@ -20,6 +20,30 @@
 {{-     $images = .Params.images -}}
 {{- end -}}
 
+{{- $next := dict -}}
+{{- with .NextInSection -}}
+{{- $next = merge $next (dict
+    "title" .Title
+    "link" .RelPermalink
+    "date" .Date
+    "summary" (.Summary | plainify)
+    "contentWordCount" .WordCount
+    "contentReadingTime" .ReadingTime
+    ) -}}
+{{- end -}}
+
+{{- $previous := dict -}}
+{{- with .PrevInSection -}}
+{{- $previous = merge $previous (dict
+    "title" .Title
+    "link" .RelPermalink
+    "date" .Date
+    "summary" (.Summary | plainify)
+    "contentWordCount" .WordCount
+    "contentReadingTime" .ReadingTime
+    ) -}}
+{{- end -}}
+
 {{- $entry := dict
     "link" .RelPermalink 
     "date" .Date
@@ -32,6 +56,8 @@
     "tableOfContents" .TableOfContents
     "kind" .Kind
     "section" .Section
+    "next" $next
+    "previous" $previous
     -}}
 {{- with .File -}}
 {{-     $entry = merge $entry (dict "contentSourceFile" .Path) -}}
