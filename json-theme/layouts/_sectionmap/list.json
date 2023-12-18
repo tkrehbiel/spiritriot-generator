@@ -2,17 +2,31 @@
     "link" "/_sectionmap"
     "date" .Date
     -}}
-{{- $pages := $.Site.Sections -}}
 {{- $entries := slice -}}
+
+{{- $allPaginator := $.Paginate $.Site.Pages -}}
+{{- range $allPaginator.Pagers -}}
+    {{- $entry := dict
+        "link" (strings.TrimPrefix "/_sectionmap" .URL)
+        "section" ""
+        -}}
+    {{- $entries = $entries | append $entry -}}
+{{- end -}}
+
+{{- $pages := $.Site.Sections -}}
 {{- range $pages -}}
-{{- if (and (ne .Section "_pagemap") (ne .Section "_sectionmap")) }}
-{{- $entry := dict
-    "link" .RelPermalink 
-    "date" .Date
-    "section" .Section
-    -}}
-{{- $entries = $entries | append $entry -}}
+    {{- if (and (ne .Section "_pagemap") (ne .Section "_sectionmap")) }}
+        {{- $section := .Section -}}
+        {{- $paginator := .Paginator -}}
+        {{- range $paginator.Pagers -}}
+            {{- $entry := dict
+                "link" .URL 
+                "section" $section
+                -}}
+            {{- $entries = $entries | append $entry -}}
+        {{- end -}}
+    {{- end -}}
 {{- end -}}
-{{- end -}}
+
 {{- $output := merge $parent (dict "children" $entries) -}}
 {{- $output | jsonify (dict "indent" "  ") }}

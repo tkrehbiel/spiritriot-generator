@@ -1,5 +1,16 @@
 {{- $parent := partial "pageToDict.tpl" . -}}
-{{- $pages := partial "getPages.tpl" $.Site.Pages | first 20 -}}
+{{- $pagination := dict
+    "numPages" $.Paginator.TotalPages
+    "currentPage" $.Paginator.PageNumber
+    -}}
+{{- if $.Paginator.HasNext -}}
+    {{- $pagination = merge $pagination (dict "nextPage" $.Paginator.Next.URL) -}}
+{{- end -}}
+{{- if $.Paginator.HasPrev -}}
+    {{- $pagination = merge $pagination (dict "previousPage" $.Paginator.Prev.URL) -}}
+{{- end -}}
+{{- $parent = merge $parent (dict "pagination" $pagination) -}}
+{{- $pages := partial "getPages.tpl" $.Paginator.Pages -}}
 {{- $children := partial "listToDict.tpl" $pages -}}
 {{- $output := merge $parent (dict "children" $children) -}}
 {{- $output | jsonify (dict "indent" "  ") }}
