@@ -1,6 +1,6 @@
 {{- $parent := partial "pageToDict.tpl" . -}}
 {{- $pagination := dict
-    "numPages" $.Paginator.TotalPages
+    "totalPages" $.Paginator.TotalPages
     "currentPage" $.Paginator.PageNumber
     -}}
 {{- if $.Paginator.HasNext -}}
