@@ -1,6 +1,6 @@
 {{- $entries := slice -}}
 {{- range $index, $element := . -}}
-{{- $entry := partial "pageToDict.tpl" . -}}
+{{- $entry := partial "summaryToDict.tpl" . -}}
 {{- $entries = $entries | append $entry -}}
 {{- end -}}
 {{- return $entries -}}
